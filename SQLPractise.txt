@@ -1,0 +1,53 @@
+-- Table creation
+CREATE TABLE Persons (
+    ID int,
+    LastName varchar(255),
+    FirstName varchar(255),
+    Address varchar(255),
+    City varchar(255)
+);
+
+-- Insert values
+INSERT INTO Persons (ID, LastName, FirstName, Address, City)
+VALUES
+('1', 'agarwal', 'sanskar', 'kolkata', 'shyamnagar'),
+('2', 'shaw', 'aditya', 'mumbai', 'athpur');
+
+-- Update query
+UPDATE Persons
+SET LastName = 'singh', City = 'barrackpore'
+WHERE ID = 2;
+
+-- Delete query
+DELETE FROM Persons
+WHERE ID = 1;
+
+-- Order by query
+SELECT *
+FROM Persons
+ORDER BY LastName, FirstName;
+
+-- Group by query
+SELECT City, COUNT(*)
+FROM Persons
+GROUP BY City;
+
+-- Between statement
+SELECT *
+FROM Persons
+WHERE ID BETWEEN 1 AND 2;
+
+-- Stored procedure
+DELIMITER //
+
+CREATE PROCEDURE GetPersonsByCity(IN cityName VARCHAR(255))
+BEGIN
+    SELECT *
+    FROM Persons
+    WHERE City = cityName;
+END //
+
+DELIMITER ;
+
+-- Call the stored procedure
+CALL GetPersonsByCity('kolkata');
